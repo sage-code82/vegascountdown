@@ -25,7 +25,34 @@ const CountdownTimer = () => {
       document.title = eventName;
     }
   }, [countdownStarted, eventName]);
-  return <div className="countdown-timer-container"></div>;
+
+  const handleSetCountdown = () => {
+    setCountdownStarted(true);
+    localStorage.setItem("eventDate", eventDate);
+    localStorage.setItem("eventName", eventName);
+  };
+
+  const handleStopCountdown = () => {
+    setCountdownStarted(false);
+    setTimeRemaining(0);
+  };
+
+  const handleResetCountdown = () => {
+    setCountdownStarted(false);
+    setEventDate("");
+    setEventName("");
+    setTimeRemaining(0);
+    localStorage.removeItem("eventDate");
+    localStorage.removeItem("eventName");
+  };
+  return (
+    <div className="countdown-timer-container">
+      <div className="control-buttons">
+        <button onClick={handleStopCountdown}>Stop</button>
+        <button onClick={handleResetCountdown}>Reset</button>
+      </div>
+    </div>
+  );
 };
 
 export default CountdownTimer;
